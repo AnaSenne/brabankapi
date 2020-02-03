@@ -14,8 +14,8 @@ class Usuarios{
                 .withMessage("Deve conter apenas um caracter(M,F ou N)!"),
                 check('senha').isLength({min:6,max:15})
                 .withMessage("Sua senha deve conter de 6 á 15 caracteres!"),
-                body('email').custom(email => {
-                    usuarioDao.buscarPorEmail(email)
+                body('email').custom( email => {
+                    return usuarioDao.buscarPorEmail(email)
                     .then(retorno => {
                         if(retorno){
                             return Promise.reject('E-mail já cadastrado')
