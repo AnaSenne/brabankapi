@@ -1,5 +1,5 @@
 const {check, body} = require('express-validator')
-const usuarioDao = require("../models/Usuarios")
+const usuarioDao = new (require("../models/Usuarios"))()
 
 class Usuarios{
     static validacoes(){
@@ -16,11 +16,17 @@ class Usuarios{
                 .withMessage("Sua senha deve conter de 6 á 15 caracteres!"),
                 body('email').custom( email => {
                     return usuarioDao.buscarPorEmail(email)
-                    .then(retorno => {
-                        if(retorno){
-                            return Promise.reject('E-mail já cadastrado')
-                        }
-                    })
+                        .then(retorno => {
+                            console.log(retorno)
+                            retorno = retorno[0]
+                            if(retorno){
+                                return Promise.reject('E-mail já cadastrado')
+                            }
+                        }).catch(erro => {
+                            console.log(erro)
+                        })
+                        
+                        
                 })
         ]
     }

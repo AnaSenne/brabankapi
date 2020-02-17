@@ -1,5 +1,5 @@
 
-const app = require('./config/custom-express')
+const app = require('./src/server')
 
 // const usuarioController = require('./controllers/usuarios')
 
